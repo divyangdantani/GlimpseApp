@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:glimpseapp_2/HomeScreen.dart';
+import 'package:glimpseapp_2/FirstScreen.dart';
 
 void main(){ 
   runApp(MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(  
       title: "GlimpseApp",
       debugShowCheckedModeBanner: false,
-       home: HomeScreen()
+       home: FirstScreen()
     );
   }
 }

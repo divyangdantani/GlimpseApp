@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:glimpseapp_2/HomeScreen.dart';
 import 'package:glimpseapp_2/animation/FadeAnimation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,7 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email, _password;
 
-  void _submitCommand() {
+  Future<void> _signIn() async{
     final form = formKey.currentState;
 
     if (form.validate()) {
@@ -24,7 +25,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _loginCommand();
 
       //firebase authentication
-      FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+      try{
+        //TODO: change AuthResult to FirebaseUser
+         AuthResult user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        //TODO: Navigate to HomeScreen
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      }catch(e){
+        print(e.message);
+      }
     }
   }
 
@@ -201,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            onTap: _submitCommand,
+                            onTap: _signIn,
                           )),
                       SizedBox(
                         height: 30,

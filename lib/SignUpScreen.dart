@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:glimpseapp_2/LoginScreen.dart';
 import 'package:glimpseapp_2/animation/FadeAnimation.dart';
@@ -13,7 +14,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String _email, _password, _cPassword, _phone;
 
-  void _submitCommand() {
+  Future<void> _signUp() async{
     final form = formKey.currentState;
 
     if (form.validate()) {
@@ -21,6 +22,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // Email & password matched our validation rules
       // and are saved to _email and _password fields.
       _signupCommand();
+
+      //create user in firebase
+      try{
+      AuthResult user =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+      //user.sendEmailVerification();
+      Navigator.of(context).pop();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+    }catch(e){
+      print(e.message);
+    }
     }
   }
 
@@ -234,7 +245,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                             ),
-                            onTap: _submitCommand,
+                            onTap: _signUp,
                           )),
                       SizedBox(
                         height: 30,
