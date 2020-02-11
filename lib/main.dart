@@ -4,7 +4,7 @@ import 'package:glimpseapp_2/FirstScreen.dart';
 
 void main(){ 
   runApp(MyApp());
-  //SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
 }
 class MyApp extends StatelessWidget {
   
