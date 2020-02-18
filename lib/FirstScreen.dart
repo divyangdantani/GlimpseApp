@@ -1,9 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 import 'package:glimpseapp_2/LoginScreen.dart';
 import 'package:glimpseapp_2/animation/delayed_anim.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'SignUpScreen.dart';
 //import 'package:glimpse_final/animation/FadeAnimation.dart';
@@ -33,6 +35,8 @@ class _FirstScreenState extends State<FirstScreen>
       });
     super.initState();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +148,7 @@ class _FirstScreenState extends State<FirstScreen>
               ),
 
               SizedBox(
-                height: 30.0,
+                height: 50.0,
               ),
               DelayedAnimation(
                 child: Text("OR",
@@ -166,12 +170,15 @@ class _FirstScreenState extends State<FirstScreen>
                     child: GestureDetector(
                       onTapDown: _onTapDown,
                       onTapUp: _onTapUp,
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    SignUpScreen()));
+                      onTap: () async {
+                        bool res = await loginWithGoogle();
+                        if(!res)
+                        print('Error in logging with Google');
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (BuildContext context) =>
+                        //             SignUpScreen()));
                       },
                       child: Transform.scale(
                         scale: _scale,
@@ -183,8 +190,8 @@ class _FirstScreenState extends State<FirstScreen>
                   Padding(padding: EdgeInsets.only(left: 25)),
                   DelayedAnimation(
                     child: GestureDetector(
-                      onTapDown: _onTapDown,
-                      onTapUp: _onTapUp,
+                     onTapDown: _onTapDown,
+                     onTapUp: _onTapUp,
                       onTap: () {
                         Navigator.push(
                             context,
@@ -236,8 +243,8 @@ class _FirstScreenState extends State<FirstScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Icon(MdiIcons.google, size: 35, color: Colors.white,),
-            Image(image: AssetImage('assets/images/icons8-google-35.png')),
-            //Image.asset('assets/images/icons8-google.svg'),
+            //Image(image: AssetImage('assets/images/icons8-google-35.png')),
+            Image.asset('assets/images/googleicon.png',height: 30,width: 30 ),
             Padding(padding: EdgeInsets.only(left: 5.0)),
             Text(
               'Google',
@@ -262,7 +269,8 @@ class _FirstScreenState extends State<FirstScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             //Icon(MdiIcons.facebook, size: 40, color: Colors.white,),
-            Image(image: AssetImage('assets/images/icons8-facebook-35.png')),
+            //Image(image: AssetImage('assets/images/icons8-facebook-35.png')),
+            Image.asset('assets/images/facebookicon.png',height: 32,width: 32 ),
             Padding(padding: EdgeInsets.only(left: 5.0)),
             Text(
               'Facebook',
@@ -283,4 +291,28 @@ class _FirstScreenState extends State<FirstScreen>
   void _onTapUp(TapUpDetails details) {
     _controller.reverse();
   }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<bool> loginWithGoogle() async{
+    try{
+      GoogleSignIn googleSignIn = GoogleSignIn();
+      GoogleSignInAccount account = await googleSignIn.signIn();
+      if(account == null)
+        return false;
+      AuthResult res = await _auth.signInWithCredential
+      (GoogleAuthProvider.getCredential(
+        idToken: (await account.authentication).idToken , 
+        accessToken: (await account.authentication).accessToken)
+      );
+      if(res.user == null)
+        return false;
+      return true;
+    }
+    catch(e)
+    {
+      print('Error in logging with Google');
+      return false;
+    }
+  }
+  
 }
