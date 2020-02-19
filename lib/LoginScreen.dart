@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glimpseapp_2/HomeScreen.dart';
+import 'package:glimpseapp_2/HomeScreenModule.dart';
 import 'package:glimpseapp_2/animation/FadeAnimation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -221,7 +222,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   color: Color.fromRGBO(143, 148, 251, 1),
                                 )),
-                            onTap: toastMessage,
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) => HomeScreenModule()));
+                            },
                           ))
                     ],
                   ),

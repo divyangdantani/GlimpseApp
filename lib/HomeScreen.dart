@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      
+
     );
   }
 
