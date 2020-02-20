@@ -1,13 +1,13 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:glimpseapp_2/HomeScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/services.dart';
 import 'package:glimpseapp_2/LoginScreen.dart';
 import 'package:glimpseapp_2/animation/delayed_anim.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
+import 'HomeScreen.dart';
 import 'SignUpScreen.dart';
 //import 'package:glimpse_final/animation/FadeAnimation.dart';
 
@@ -36,8 +36,6 @@ class _FirstScreenState extends State<FirstScreen>
       });
     super.initState();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -71,20 +69,32 @@ class _FirstScreenState extends State<FirstScreen>
               DelayedAnimation(
                 child: Text(
                   "Hi There",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35.0,
-                      color: color),
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                        color: color,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+//                  style: TextStyle(
+//                      fontWeight: FontWeight.bold,
+//                      fontSize: 35.0,
+//                      color: color),
                 ),
                 delay: delayedAmount + 1000,
               ),
               DelayedAnimation(
                 child: Text(
-                  "I'm GlimpseApp",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35.0,
-                      color: color),
+                  "I'm Glimpsy",
+                  style: GoogleFonts.openSans(
+                    textStyle: TextStyle(
+                        color: color,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+//                  style: TextStyle(
+//                      fontWeight: FontWeight.bold,
+//                      fontSize: 35.0,
+//                      color: color),
                 ),
                 delay: delayedAmount + 2000,
               ),
@@ -132,10 +142,16 @@ class _FirstScreenState extends State<FirstScreen>
                 child: GestureDetector(
                   child: Text(
                     "I already have an account",
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        //fontWeight: FontWeight.bold,
-                        color: color),
+//                    style: TextStyle(
+//                        fontSize: 20.0,
+//                        //fontWeight: FontWeight.bold,
+//                        color: color),
+                    style: GoogleFonts.openSans(
+                      textStyle: TextStyle(
+                          color: color,
+                          fontSize: 20.0,
+                          ),
+                    ),
                   ),
                   onTap: () {
                     Navigator.push(
@@ -191,8 +207,8 @@ class _FirstScreenState extends State<FirstScreen>
                   Padding(padding: EdgeInsets.only(left: 25)),
                   DelayedAnimation(
                     child: GestureDetector(
-                     onTapDown: _onTapDown,
-                     onTapUp: _onTapUp,
+                      onTapDown: _onTapDown,
+                      onTapUp: _onTapUp,
                       onTap: () {
                         Navigator.push(
                             context,
@@ -223,7 +239,7 @@ class _FirstScreenState extends State<FirstScreen>
         ),
         child: Center(
           child: Text(
-            'Sign Up in GlimpseApp',
+            'Let me Sign Up',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
@@ -245,7 +261,7 @@ class _FirstScreenState extends State<FirstScreen>
           children: <Widget>[
             //Icon(MdiIcons.google, size: 35, color: Colors.white,),
             //Image(image: AssetImage('assets/images/icons8-google-35.png')),
-            Image.asset('assets/images/googleicon.png',height: 30,width: 30 ),
+            Image.asset('assets/images/googleicon.png', height: 30, width: 30),
             Padding(padding: EdgeInsets.only(left: 5.0)),
             Text(
               'Google',
@@ -271,7 +287,8 @@ class _FirstScreenState extends State<FirstScreen>
           children: <Widget>[
             //Icon(MdiIcons.facebook, size: 40, color: Colors.white,),
             //Image(image: AssetImage('assets/images/icons8-facebook-35.png')),
-            Image.asset('assets/images/facebookicon.png',height: 32,width: 32 ),
+            Image.asset('assets/images/facebookicon.png',
+                height: 32, width: 32),
             Padding(padding: EdgeInsets.only(left: 5.0)),
             Text(
               'Facebook',
@@ -294,26 +311,20 @@ class _FirstScreenState extends State<FirstScreen>
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  Future<bool> loginWithGoogle() async{
-    try{
+  Future<bool> loginWithGoogle() async {
+    try {
       GoogleSignIn googleSignIn = GoogleSignIn();
       GoogleSignInAccount account = await googleSignIn.signIn();
-      if(account == null)
-        return false;
-      AuthResult res = await _auth.signInWithCredential
-      (GoogleAuthProvider.getCredential(
-        idToken: (await account.authentication).idToken , 
-        accessToken: (await account.authentication).accessToken,
-        ));
-      if(res.user == null)
-        return false;
+      if (account == null) return false;
+      AuthResult res = await _auth.signInWithCredential(
+          GoogleAuthProvider.getCredential(
+              idToken: (await account.authentication).idToken,
+              accessToken: (await account.authentication).accessToken));
+      if (res.user == null) return false;
       return true;
-    }
-    catch(e)
-    {
+    } catch (e) {
       print('Error in logging with Google');
       return false;
     }
   }
-  
 }
