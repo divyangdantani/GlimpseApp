@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glimpseapp_2/HomeScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:glimpseapp_2/HomeScreenModule.dart';
 import 'package:glimpseapp_2/animation/FadeAnimation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email, _password;
 
-  Future<void> _signIn() async{
+  Future<void> _signIn() async {
     final form = formKey.currentState;
 
     if (form.validate()) {
@@ -26,12 +27,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _loginCommand();
 
       //firebase authentication
-      try{
+      try {
         //TODO: change AuthResult to FirebaseUser
-         AuthResult user = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        AuthResult user = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
         //TODO: Navigate to HomeScreen
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
-      }catch(e){
+        Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      } catch (e) {
         print(e.message);
       }
     }
@@ -48,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFffffff),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
@@ -222,11 +225,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   color: Color.fromRGBO(143, 148, 251, 1),
                                 )),
-                            onTap: (){
+                            onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (BuildContext context) => HomeScreenModule()));
+                                      builder: (BuildContext context) =>
+                                          HomeScreenModule()));
                             },
                           ))
                     ],
