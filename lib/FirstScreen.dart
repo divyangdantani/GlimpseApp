@@ -1,6 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:glimpseapp_2/HomeScreen.dart';
 //import 'package:flutter/services.dart';
 import 'package:glimpseapp_2/LoginScreen.dart';
 import 'package:glimpseapp_2/animation/delayed_anim.dart';
@@ -174,11 +175,11 @@ class _FirstScreenState extends State<FirstScreen>
                         bool res = await loginWithGoogle();
                         if(!res)
                         print('Error in logging with Google');
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (BuildContext context) =>
-                        //             SignUpScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    HomeScreen()));
                       },
                       child: Transform.scale(
                         scale: _scale,
@@ -302,8 +303,8 @@ class _FirstScreenState extends State<FirstScreen>
       AuthResult res = await _auth.signInWithCredential
       (GoogleAuthProvider.getCredential(
         idToken: (await account.authentication).idToken , 
-        accessToken: (await account.authentication).accessToken)
-      );
+        accessToken: (await account.authentication).accessToken,
+        ));
       if(res.user == null)
         return false;
       return true;
