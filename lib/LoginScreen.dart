@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: _email, password: _password);
         //TODO: Navigate to HomeScreen
         Navigator.push(context,
-            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+            MaterialPageRoute(builder: (BuildContext context) => HomeScreenModule()));
       } catch (e) {
         print(e.message);
       }

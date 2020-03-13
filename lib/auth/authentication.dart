@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+import 'package:glimpseapp_2/FirstScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -16,110 +18,215 @@ class _AuthenticationState extends State<Authentication> {
   String phoneNo;
   String smsCode;
   String verificationId;
+  String errorMessage = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
-
+//  Future<void> verifyNumber() async {
+//    var connection = await Connectivity().checkConnectivity();
+//
+//    if (phoneNo == null) {
+//      Fluttertoast.showToast(msg: "Please fill phone number");
+//    } else {
+//      final PhoneCodeSent smsCodeSent = (String verID, [int forceCodeResend]) {
+//        this.verificationId = verID;
+//       // Navigator.pop(context);
+//        smsCodeDialog(context);
+//      };
+//      try {
+//        await _auth.verifyPhoneNumber(
+//            phoneNumber: this.phoneNo,
+//            // PHONE NUMBER TO SEND OTP
+//            codeAutoRetrievalTimeout: (String verId) {
+//              //Starts the phone number verification process for the given phone number.
+//              //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
+//              this.verificationId = verId;
+//            },
+//            codeSent: smsCodeSent,
+//            // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+//            timeout: const Duration(seconds: 20),
+//            verificationCompleted: (AuthCredential phoneAuthCredential) async {
+//              Fluttertoast.showToast(msg: "OTP Verified");
+//              try {
+//                final AuthCredential credential = PhoneAuthProvider.getCredential(
+//                  verificationId: verificationId,
+//                  smsCode: smsCode,
+//                );
+//                final FirebaseUser user =
+//               await (_auth.signInWithCredential(credential)) as FirebaseUser;
+//              final FirebaseUser currentUser = await _auth.currentUser();
+//              assert(user.uid == currentUser.uid);
+//              Navigator.of(context).pop();
+//              Navigator.of(context).pushReplacementNamed('/homepage');
+//              } catch (e) {
+//              handleError(e);
+//              }
+//              //Navigator.of(context).pushReplacementNamed('/homepage');
+//
+//              print(phoneAuthCredential);
+//            },
+//            verificationFailed: (AuthException exceptio) {
+//              if (connection != ConnectivityResult.mobile &&
+//                  connection != ConnectivityResult.wifi) {
+//                Fluttertoast.showToast(msg: "No internet connection");
+//              } else {
+//                Fluttertoast.showToast(msg: "Invalid number");
+//              }
+//              print('${exceptio.message}');
+//            });
+//      } catch (e) {
+//        handleError(e);
+//      }
+//    }
+//  }
   Future<void> verifyNumber() async {
-    var connection = await Connectivity().checkConnectivity();
-
-    if (phoneNo == null) {
-      Fluttertoast.showToast(msg: "Please fill phone number");
-    }
-    else {
-      final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verID) {
-        this.verificationId = verID;
-
-        ///Dialog here
-        smsCodeDialog(context);
-      };
-
-      final PhoneCodeSent smsCodeSent = (String verID, [int forceCodeResend]) {
-        this.verificationId = verID;
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => HomeScreenModule()));
-      };
-      final PhoneVerificationCompleted verificationSuccess =
-          (AuthCredential credential) {
-        Fluttertoast.showToast(msg: "OTP Verified");
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => HomeScreenModule()));
-      };
-
-      final PhoneVerificationFailed verificationFailed =
-          (AuthException exception) {
-        if (connection != ConnectivityResult.mobile &&
-            connection != ConnectivityResult.wifi) {
-          Fluttertoast.showToast(msg: "No internet connection");
-        } else {
-          Fluttertoast.showToast(msg: "Invalid number");
-        }
-        print('${exception.message}');
-      };
-
-      await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: this.phoneNo,
-          codeAutoRetrievalTimeout: autoRetrieve,
-          codeSent: smsCodeSent,
-          timeout: const Duration(seconds: 5),
-          verificationCompleted: verificationSuccess,
-          verificationFailed: verificationFailed);
+    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
+      this.verificationId = verId;
+      smsCodeDialog(context).then((value) {
+        print('sign in');
+      });
+    };
+    try {
+      await _auth.verifyPhoneNumber(
+          phoneNumber: this.phoneNo, // PHONE NUMBER TO SEND OTP
+          codeAutoRetrievalTimeout: (String verId) {
+            //Starts the phone number verification process for the given phone number.
+            //Either sends an SMS with a 6 digit code to the phone number specified, or sign's the user in and [verificationCompleted] is called.
+            this.verificationId = verId;
+          },
+          codeSent:
+          smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+          timeout: const Duration(seconds: 20),
+          verificationCompleted: (AuthCredential phoneAuthCredential) {
+            print(phoneAuthCredential);
+          },
+          verificationFailed: (AuthException exceptio) {
+            print('${exceptio.message}');
+          });
+    } catch (e) {
+      handleError(e);
     }
   }
-
-    Future<bool> smsCodeDialog(BuildContext context) {
-      return showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) =>
-              AlertDialog(
-                title: Text("Enter SMS code"),
-                content: TextField(onChanged: (value) {
-                  this.smsCode = value;
-                }),
-                actions: <Widget>[
-                  RaisedButton(
-                    color: Colors.teal,
-                    child: Text(
-                      "Done",
-                      style: TextStyle(color: Colors.white),
+  Future<bool> smsCodeDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text("Enter SMS code"),
+              content: Container(
+                height: 85,
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      onChanged: (value) {
+                        this.smsCode = value;
+                      },
+                      keyboardType: TextInputType.number,
                     ),
-                    onPressed: () {
-                      FirebaseAuth.instance.currentUser().then((user) {
-                        if (user != null) {
-                          Navigator.pop(context);
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      HomeScreenModule()));
-                        } else {
-                          Navigator.pop(context);
-                          signIn();
-                        }
-                      });
-                    },
-                  )
-                ],
-              ));
-
+                    (errorMessage != ''
+                        ? Text(
+                            errorMessage,
+                            style: TextStyle(color: Colors.red),
+                          )
+                        : Container())
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                RaisedButton(
+                  color: Colors.teal,
+                  child: Text(
+                    "Done",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    _auth.currentUser().then((user) {
+                      if (user != null) {
+                        Navigator.pop(context);
+                        Navigator.of(context).pushReplacementNamed('/homepage');
+                      } else {
+                        // Navigator.pop(context);
+                        signIn();
+                      }
+                    });
+                  },
+                ),
+              ],
+            ));
   }
 
+//  signIn() async {
+//    try {
+//      final AuthCredential credential = PhoneAuthProvider.getCredential(
+//        verificationId: verificationId,
+//        smsCode: smsCode,
+//      );
+//      final FirebaseUser user =
+//          (await _auth.signInWithCredential(credential)) as FirebaseUser;
+//      final FirebaseUser currentUser = await _auth.currentUser();
+//      assert(user.uid == currentUser.uid);
+//      Navigator.of(context).pop();
+//      Navigator.of(context).pushReplacementNamed('/homepage');
+//    } catch (e) {
+//      handleError(e);
+//    }
+//  }
   signIn() async {
-    final AuthCredential credential = PhoneAuthProvider.getCredential(
-      verificationId: verificationId,
-      smsCode: smsCode,
-    );
-    await FirebaseAuth.instance.signInWithCredential(credential).then((user) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => HomeScreenModule()));
-    }).catchError((e) => print(e));
+    try {
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+      final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
+      final FirebaseUser currentUser = await _auth.currentUser();
+      assert(user.uid == currentUser.uid);
+      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacementNamed('/homepage');
+    } catch (e) {
+      handleError(e);
+    }
   }
+  handleError(PlatformException error) {
+    print(error);
+    switch (error.code) {
+      case 'ERROR_INVALID_VERIFICATION_CODE':
+        FocusScope.of(context).requestFocus(new FocusNode());
+        setState(() {
+          errorMessage = 'Invalid Code';
+        });
+        Navigator.of(context).pop();
+        smsCodeDialog(context).then((value) {
+          print('sign in');
+        });
+        break;
+      default:
+        setState(() {
+          errorMessage = error.message;
+        });
+
+        break;
+    }
+  }
+
+
+//  handleError(PlatformException error) {
+//    print(error);
+//    switch (error.code) {
+//      case 'ERROR_INVALID_VERIFICATION_CODE':
+//        FocusScope.of(context).requestFocus(new FocusNode());
+//        setState(() {
+//          errorMessage = 'Invalid Code';
+//        });
+//        Navigator.of(context).pop();
+//        smsCodeDialog(context);
+//        break;
+//      default:
+//        setState(() {
+//          errorMessage = error.message;
+//        });
+//
+//        break;
+//    }
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +298,8 @@ class _AuthenticationState extends State<Authentication> {
                 decoration: InputDecoration(
                   hintText: "Enter phone number",
                   hintStyle: TextStyle(color: Colors.white),
-                ),keyboardType: TextInputType.number,
+                ),
+                keyboardType: TextInputType.number,
                 style: TextStyle(color: Colors.white),
                 onChanged: (value) {
                   this.phoneNo = value;
@@ -199,12 +307,19 @@ class _AuthenticationState extends State<Authentication> {
               ),
               delay: 1500,
             ),
+            (errorMessage != ''
+                ? Text(
+                    errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  )
+                : Container()),
             SizedBox(
               height: 50.0,
             ),
             DelayedAnimation(
               child: RaisedButton(
-                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0)),
                 color: Colors.white,
                 onPressed: verifyNumber,
                 child: Text(
