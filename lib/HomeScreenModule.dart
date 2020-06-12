@@ -16,7 +16,7 @@ class HomeState extends State<HomeScreenModule> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
-      backgroundColor: Color(0xFF8185E2),
+      backgroundColor: Color(0xff2b2d42),
       body: Column(
         children: <Widget>[
           Container(
@@ -53,7 +53,7 @@ class HomeState extends State<HomeScreenModule> {
                 Positioned(
                   right: 50,
                   top: 40,
-                  width: 80,
+                  width: 100,
                   height: 200,
                   child: FadeAnimation(
                     1.8,
@@ -61,7 +61,7 @@ class HomeState extends State<HomeScreenModule> {
                       //1.5 ,3.0
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage('assets/images/glimpsy.png'))),
+                              image: AssetImage('assets/images/logo.png'))),
                     ),
                   ),
                 ),
@@ -78,7 +78,7 @@ class HomeState extends State<HomeScreenModule> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Glimpsy",
+                        "Hello There...",
                         style: GoogleFonts.openSans(
                             textStyle: TextStyle(
                                 color: Colors.white,

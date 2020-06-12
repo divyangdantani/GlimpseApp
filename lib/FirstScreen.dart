@@ -1,6 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:glimpseapp_2/HomeScreenModule.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:glimpseapp_2/auth/authentication.dart';
 //import 'package:flutter/services.dart';
@@ -199,7 +200,7 @@ class _FirstScreenState extends State<FirstScreen>
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        HomeScreen()));
+                                        HomeScreenModule()));
                           },
                           child: Transform.scale(
                             scale: _scale,

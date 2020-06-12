@@ -18,7 +18,12 @@ dependencies:
   firebase_auth: ^0.15.4
   google_sign_in: ^4.0.7
   url_launcher: ^5.4.2
+  flutter_hsvcolor_picker: ^0.0.1
+  flutter_colorpicker: ^0.3.2
+  flutter_barcode_scanner: ^1.0.1
   tflite: ^1.0.5
+  carousel_slider: ^2.1.0
+  flutter_launcher_icons: ^0.7.5
   image_picker: ^0.6.3+1
 
   # The following adds the Cupertino Icons font to your application.
@@ -31,6 +36,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_icons:
+  image_path: "assets/images/rlauncher.png"
+  ios: true
+  android: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

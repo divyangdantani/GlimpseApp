@@ -22,14 +22,14 @@ class _GridDashboardState extends State<GridDashboard> {
       temp: 1,
       title: "Let's Speak",
       subtitle: "Don't bother about languages",
-      event: "3 Events",
+      event: "",
       img: "assets/images/speak.png");
 
   Items item2 = new Items(
     temp: 2,
     title: "Reveal the Nature",
     subtitle: "Know the plant families",
-    event: "4 Items",
+    event: "",
     img: "assets/images/plant.png",
   );
 
@@ -53,7 +53,7 @@ class _GridDashboardState extends State<GridDashboard> {
     temp: 5,
     title: "Scan",
     subtitle: "For any kind of barcode",
-    event: "4 Items",
+    event: "",
     img: "assets/images/barcode.png",
   );
 
@@ -61,7 +61,7 @@ class _GridDashboardState extends State<GridDashboard> {
     temp: 6,
     title: "Settings",
     subtitle: "",
-    event: "2 Items",
+    event: "",
     img: "assets/images/settings.png",
   );
 
@@ -69,7 +69,7 @@ class _GridDashboardState extends State<GridDashboard> {
   Widget build(BuildContext context) {
     FirebaseAuth _auth = FirebaseAuth.instance;
     List<Items> myList = [item1, item2, item3, item4, item5, item6];
-    var color = 0xFFfffff;
+    var color = Colors.black12;
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
@@ -113,7 +113,7 @@ class _GridDashboardState extends State<GridDashboard> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color(color),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +129,7 @@ class _GridDashboardState extends State<GridDashboard> {
                           data.title,
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
-                                  color: Color(0xFF8185E2),
+                                  color: Color(0xffea3869),
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600)),
                         ),
@@ -140,7 +140,7 @@ class _GridDashboardState extends State<GridDashboard> {
                           data.subtitle,
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
-                                  color: Color(0xFF8185E2),
+                                  color: Color(0xff2b2d42),
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600)),
                         ),

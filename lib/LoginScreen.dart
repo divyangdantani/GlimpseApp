@@ -225,13 +225,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                   color: Color.fromRGBO(143, 148, 251, 1),
                                 )),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomeScreenModule()));
-                            },
+//                            onTap: () {
+//                              Navigator.push(
+//                                  context,
+//                                  MaterialPageRoute(
+//                                      builder: (BuildContext context) =>
+//                                          HomeScreenModule()));
+                            //},
                           ))
                     ],
                   ),

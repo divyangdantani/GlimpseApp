@@ -15,7 +15,7 @@ class _ObjectDetectModuleState extends State<ObjectDetectModule> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFF8185E2),
+        backgroundColor: Color(0xff2b2d42),
         body: Column(
           children: <Widget>[
             Container(
@@ -54,7 +54,7 @@ class _ObjectDetectModuleState extends State<ObjectDetectModule> {
                   Positioned(
                     right: 50,
                     top: 40,
-                    width: 80,
+                    width: 100,
                     height: 200,
                     child: FadeAnimation(
                       1.8,
@@ -63,7 +63,7 @@ class _ObjectDetectModuleState extends State<ObjectDetectModule> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image:
-                                AssetImage('assets/images/glimpsy.png'))),
+                                AssetImage('assets/images/logo.png'))),
                       ),
                     ),
                   ),

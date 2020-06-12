@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:glimpseapp_2/animation/FadeAnimation.dart';
 import 'package:glimpseapp_2/animation/delayed_anim.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class BarcodeModule extends StatefulWidget {
   @override
@@ -10,12 +15,14 @@ class BarcodeModule extends StatefulWidget {
 
 class _BarcodeModuleState extends State<BarcodeModule> {
   final int delayedAmount = 500;
+  String reader = 'Unknown';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFF8185E2),
+        backgroundColor: Color(0xff2b2d42),
         body: Column(
           children: <Widget>[
             Container(
@@ -32,7 +39,7 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image:
-                                AssetImage('assets/images/light-1.png'))),
+                                    AssetImage('assets/images/light-1.png'))),
                       ),
                     ),
                   ),
@@ -47,14 +54,14 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image:
-                                AssetImage('assets/images/light-2.png'))),
+                                    AssetImage('assets/images/light-2.png'))),
                       ),
                     ),
                   ),
                   Positioned(
                     right: 50,
                     top: 40,
-                    width: 80,
+                    width: 100,
                     height: 200,
                     child: FadeAnimation(
                       1.8,
@@ -63,7 +70,7 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image:
-                                AssetImage('assets/images/glimpsy.png'))),
+                                    AssetImage('assets/images/logo.png'))),
                       ),
                     ),
                   ),
@@ -91,7 +98,7 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                           height: 4,
                         ),
                         Text(
-                          "Any code will be decode",
+                          "Any code will be decoded",
                           style: GoogleFonts.openSans(
                               textStyle: TextStyle(
                                   color: Colors.white54,
@@ -104,11 +111,38 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 20),
+
+            new RaisedButton(
+                color: Colors.white,
+                child: Text('Scan'),
+                splashColor: Colors.pinkAccent,
+                onPressed: scan),
+            SizedBox(height: 10),
+            Center(child: Text(reader)),
           ],
         ),
       ),
     );
   }
-}
 
+  scan() async {
+    String scan_reader;
+    try {
+      scan_reader = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.QR);
+      // print(scan_reader);
+    } on PlatformException {
+      scan_reader = 'Failed to get version';
+
+      if (!mounted) return;
+      setState(() {
+        reader = scan_reader;
+      });
+
+
+    }
+
+  }
+}

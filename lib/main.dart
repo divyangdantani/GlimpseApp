@@ -11,15 +11,20 @@ import 'package:glimpseapp_2/HomeScreen.dart';
 import 'package:glimpseapp_2/HomeScreenModule.dart';
 import 'package:glimpseapp_2/LoginScreen.dart';
 
+import 'HomePageRoutes/caro.dart';
+
 void main() {
   runApp(MyApp());
   SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 }
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "GlimpseApp",
+       // title: "GlimpseApp",
         routes: <String, WidgetBuilder>{
           '/homepage': (BuildContext context) => HomeScreenModule(),
           '/loginpage': (BuildContext context) => LoginScreen(),
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
           '/Barcode': (BuildContext context) => BarcodeModule(),
         },
         debugShowCheckedModeBanner: false,
-        home: FirstScreen());
+        home:  CarouselDemo());
   }
 }
 

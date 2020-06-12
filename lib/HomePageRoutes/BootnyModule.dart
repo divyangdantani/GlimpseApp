@@ -38,7 +38,7 @@ class _BootnyModuleState extends State<BootnyModule> {
   Widget build(BuildContext context) {
    //String f_name =  "${_outputs[0]["label"]}";
     return Scaffold(
-      backgroundColor: Color(0xFF8185E2),
+      backgroundColor: Color(0xff2b2d42),
       body: _loading
           ? Container(
         alignment: Alignment.center,
@@ -55,7 +55,7 @@ class _BootnyModuleState extends State<BootnyModule> {
           children: [
             _image == null
                 ? Container(
-              child: Text('Please select an image'),
+              child: Text('Please select an image',style: TextStyle(color: Colors.white),),
             )
                 : Image.file(_image),
             SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:glimpseapp_2/FirstScreen.dart';
+import 'package:glimpseapp_2/LoginScreen.dart';
+import 'package:glimpseapp_2/SignUpScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +96,7 @@ class _AuthenticationState extends State<Authentication> {
             this.verificationId = verId;
           },
           codeSent:
-          smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
+              smsOTPSent, // WHEN CODE SENT THEN WE OPEN DIALOG TO ENTER OTP.
           timeout: const Duration(seconds: 20),
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print(phoneAuthCredential);
@@ -106,6 +108,7 @@ class _AuthenticationState extends State<Authentication> {
       handleError(e);
     }
   }
+
   Future<bool> smsCodeDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -176,7 +179,8 @@ class _AuthenticationState extends State<Authentication> {
         verificationId: verificationId,
         smsCode: smsCode,
       );
-      final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
+      final FirebaseUser user =
+          (await _auth.signInWithCredential(credential)) as FirebaseUser;
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       Navigator.of(context).pop();
@@ -185,6 +189,7 @@ class _AuthenticationState extends State<Authentication> {
       handleError(e);
     }
   }
+
   handleError(PlatformException error) {
     print(error);
     switch (error.code) {
@@ -206,7 +211,6 @@ class _AuthenticationState extends State<Authentication> {
         break;
     }
   }
-
 
 //  handleError(PlatformException error) {
 //    print(error);
@@ -231,7 +235,7 @@ class _AuthenticationState extends State<Authentication> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF8185E2),
+      backgroundColor: Color(0xff2b2d42),
       body: Center(
         child: ListView(
           padding: EdgeInsets.all(20.0),
@@ -242,17 +246,19 @@ class _AuthenticationState extends State<Authentication> {
                 duration: Duration(seconds: 2),
                 glowColor: Colors.white24,
                 repeat: true,
-                repeatPauseDuration: Duration(seconds: 2),
+                repeatPauseDuration: Duration(seconds: 0),
                 startDelay: Duration(seconds: 1),
                 child: Material(
                     elevation: 9.0,
                     shape: CircleBorder(),
                     child: CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      child: FlutterLogo(
-                        size: 50.0,
+                      backgroundColor: Colors.white,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        height: 80,
+                        width: 80,
                       ),
-                      radius: 50.0,
+                      radius: 60.0,
                     )),
               ),
               delay: 1500,
@@ -324,10 +330,62 @@ class _AuthenticationState extends State<Authentication> {
                 onPressed: verifyNumber,
                 child: Text(
                   "Send OTP",
-                  style: TextStyle(color: Color(0xFF8185E2)),
+                  style: TextStyle(color: Color(0xffea3869)),
                 ),
               ),
               delay: 1000,
+            ),
+            SizedBox(height: 20),
+            DelayedAnimation(
+              child: Container(
+                alignment: Alignment.center,
+                  child: Text(
+                'OR',
+                style: TextStyle(color: Colors.white),
+              )),
+              delay: 1000,
+            ),
+            SizedBox(height: 20),
+            DelayedAnimation(
+              child: RaisedButton(
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30.0)),
+                color: Colors.white,
+                onPressed: (){
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              SignUpScreen()));
+                },
+                child: Text(
+                  "Login via Email",
+                  style: TextStyle(color: Color(0xffea3869)),
+                ),
+              ),
+              delay: 1000,
+            ),
+            SizedBox(height: 40),
+            DelayedAnimation(
+              child: Container(
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  child: Text(
+                    'Skip for now...',
+                    style: TextStyle(
+                      color: Color(0xffea3869),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                HomeScreenModule()));
+                  },
+                ),
+              ),
+              delay: 3000,
             )
           ],
         ),
