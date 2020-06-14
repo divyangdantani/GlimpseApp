@@ -47,7 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff2b2d42),
         body: SingleChildScrollView(
           child: Container(
             child: Column(
