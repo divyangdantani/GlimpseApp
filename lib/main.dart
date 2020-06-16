@@ -15,6 +15,7 @@ import 'HomePageRoutes/caro.dart';
 
 void main() {
   runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([]);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
