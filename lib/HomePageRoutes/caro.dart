@@ -23,6 +23,7 @@ class CarouselDemoState extends State<CarouselDemo> {
     'assets/images/nature.png',
     'assets/images/text.png',
     'assets/images/charater.png',
+    'assets/images/colorimg.png',
   ];
 
   List<T> map<T>(List list, Function handler) {
