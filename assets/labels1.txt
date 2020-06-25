@@ -1,0 +1,15 @@
+0 Aamir Khan 
+1 Akshay Kumar
+2 Amjad Khan
+3 Anil Kapoor
+4 Arjun Rampal
+5 Ashish Vidhyarthi
+6 Deepika Padukon
+7 Dharmendra
+8 Dilip Kumar
+9 Jetendra
+10 Kader Khan
+11 Kulbhushan 
+12 Manoj Kumar
+13 Mithoon
+14 Nana Patekar
