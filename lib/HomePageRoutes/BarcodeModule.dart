@@ -15,8 +15,7 @@ class BarcodeModule extends StatefulWidget {
 
 class _BarcodeModuleState extends State<BarcodeModule> {
   final int delayedAmount = 500;
-  String reader = 'Unknown';
-
+  String reader = 'Text will appear here!!!!';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -112,7 +111,7 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
 
             new RaisedButton(
                 color: Colors.white,
@@ -120,7 +119,7 @@ class _BarcodeModuleState extends State<BarcodeModule> {
                 splashColor: Colors.pinkAccent,
                 onPressed: scan),
             SizedBox(height: 10),
-            Center(child: Text(reader)),
+            Center(child: Text(reader,style: TextStyle(color: Colors.white),)),
           ],
         ),
       ),
@@ -131,18 +130,20 @@ class _BarcodeModuleState extends State<BarcodeModule> {
     String scan_reader;
     try {
       scan_reader = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", "Cancel", true, ScanMode.QR);
-      // print(scan_reader);
-    } on PlatformException {
-      scan_reader = 'Failed to get version';
+          "#ff6666", "Cancel", true, ScanMode.DEFAULT);
+      print(scan_reader);
+    }
+    on PlatformException {
+      scan_reader = 'Failed to get version.';
+    }
 
       if (!mounted) return;
+
       setState(() {
         reader = scan_reader;
       });
 
 
-    }
-
   }
+
 }

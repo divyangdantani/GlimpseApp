@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:272616233232:android:620a9c8c90e429a077ed95",
         "android_client_info": {
-          "package_name": "com.example.glimpseapp_2"
+          "package_name": "demo.unitydevelopers.glimpseapp_2"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "272616233232-2i23hfq2atiat95uauo9o7jf87gg0efd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.glimpseapp_2",
+            "package_name": "demo.unitydevelopers.glimpseapp_2",
             "certificate_hash": "c682cec7e1a2ee80bd12fb0b036cea328ae834bb"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "272616233232-j0qgss18106djnv4o1rjbct7gu2hkd21.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.glimpseapp_2",
+            "package_name": "demo.unitydevelopers.glimpseapp_2",
             "certificate_hash": "771a403094131a9ec4c550d949392b423b747cc8"
           }
         },
@@ -34,7 +34,7 @@
           "client_id": "272616233232-4s883r11pp019lrhii31nv42dmtlul5p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.glimpseapp_2",
+            "package_name": "demo.unitydevelopers.glimpseapp_2",
             "certificate_hash": "5e8649b2d71031a52aaded1b94f0aa57a02f6963"
           }
         },

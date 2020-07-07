@@ -41,7 +41,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
     //  final String title = useSnapshot ? "snapshot" : "basic";
     return Scaffold(
 //      appBar: AppBar
-      backgroundColor: Color(0xFF8185E2),
+      backgroundColor: Color(0xff2b2d42),
       body: StreamBuilder(
           initialData: Colors.green[500],
           stream: _stateController.stream,
@@ -136,7 +136,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                       child: Text(
                         'Try other images',
                         style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                     margin: EdgeInsets.only(left: 70, top: 600),
@@ -144,7 +144,7 @@ class _ColorPickerWidgetState extends State<ColorPickerWidget> {
                     width: 270,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.0),
-                      color: Colors.white,
+                      color: Color(0xffea3869),
                     ),
                   ),
                   onTapDown: _onTapDown,

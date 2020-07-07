@@ -144,7 +144,7 @@ class _BootnyModuleState extends State<BootnyModule> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(height: 40,),
                   _image == null
                       ? Container(
                     child: Text('Please select an image of flower..',style: TextStyle(color: Colors.white),),

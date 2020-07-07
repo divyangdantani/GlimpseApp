@@ -144,10 +144,10 @@ class _ObjectDetectModuleState extends State<ObjectDetectModule> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20,),
+                  SizedBox(height: 40,),
                   _image == null
                       ? Container(
-                    child: Text('Please select an image of flower..',style: TextStyle(color: Colors.white),),
+                    child: Text('Please select an image of celebrity..',style: TextStyle(color: Colors.white),),
                   )
                       : Image.file(_image),
                   SizedBox(

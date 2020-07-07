@@ -1,0 +1,4 @@
+storePassword=glimpspot123
+keyPassword=glimpspot123
+keyAlias=key
+storeFile=C:/Users/jatin/key.jks

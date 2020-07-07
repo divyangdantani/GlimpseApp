@@ -141,13 +141,17 @@ class _ColorModuleState extends State<ColorModule> {
 //               ),
 //             )
                   DelayedAnimation(
-                child: new ColorPicker(
-                  color: Colors.red,
-                  onChanged: (value) {
-                    setState(() {
-                      pickColor = value;
-                    });
-                  },
+                child: Container(
+                  color: Colors.white60,
+                  child: new ColorPicker(
+                    color: Colors.white,
+
+                    onChanged: (value) {
+                      setState(() {
+                        pickColor = value;
+                      });
+                    },
+                  ),
                 ),
                 delay: delayedAmount + 1000,
               ),
